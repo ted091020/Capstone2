@@ -1,0 +1,18 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<h1>About this website</h1>
+	<p>This website was built with <a href='https://flask.palletsprojects.com/en/1.1.x/'>Flask</a> and deployed using <a href='https://www.pythonanywhere.com'>pythonanywhere.com</a>.</p>
+	<h1>How the maps are generated</h1>
+	<p>The maps are generated in Python using a package called <a href='https://python-visualization.github.io/folium/'>Folium</a>. Census data and health inspection data is combined to create an 'Opportunity Metric' which signifies the level of opportunity to open a new restaurant in that zip code. This metric has a theoretical range of 0-100.</p>
+	<h1>How the Opportunity Metric is calculated</h1>
+	<p>The Opportunity Metric has 5 components, equally weighted. These are:
+		<ul>
+			<li>Population (higher is better)</li>
+			<li>Median income (higher is better)</li>
+			<li>Restaurants per capita (lower is better)</li>
+			<li>Proportion of selected cuisine (lower is better)</li>
+			<li>Proportion of selected age group (higher is better)</li>
+		</ul>
+		Each component is scaled with a MinMax scaler, then summed. The sum is then multiplied by 20 to give a final range of 0-100.
+	</p>
+{% endblock content %}

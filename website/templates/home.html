@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block content %}
+	<h1> Make selections </h1>
+	<form action='#' method="POST">
+		<label for='cuisine'>Select cuisine</label>
+		<select id="cuisine" name='cuisine'>
+		  <option value="American" name='cuisine'>American</option>
+		  <option value="Italian" name='cuisine'>Italian</option>
+		  <option value="Chinese" name='cuisine'>Chinese</option>
+		  <option value="Mexican" name='cuisine'>Mexican</option>
+		</select>
+		<label for='age_group'>Select age group</label>
+		<select id="age_group" name='age_group'>
+		  <option value="0-14" name='age_group'>0-14</option>
+		  <option value="15-29" name='age_group'>15-29</option>
+		  <option value="30-54" name='age_group'>30-54</option>
+		  <option value="55+" name='age_group'>55+</option>
+		</select>
+		<input type="submit" value="Generate Map!">
+	</form>
+
+
+	<!--
+	<form action='#' method="POST">
+  		<input type="radio" id="italian" name="cuisine" value="Italian">
+  		<label for="italian">Italian</label><br>
+  		<input type="radio" id="chinese" name="cuisine" value="Chinese">
+  		<label for="chinese">Chinese</label><br>
+  		<input type="radio" id="mexican" name="cuisine" value="Mexican">
+  		<label for="mexican">Mexican</label>
+  		<input type="radio" id="0-14" name="age_group" value="0-14">
+  		<label for="0-14">0-14</label>
+  		<input type="radio" id="15-29" name="age_group" value="15-29">
+  		<label for="15-29">15-29</label>
+  		<input type="radio" id="30-54" name="age_group" value="30-54">
+  		<label for="30-54">30-54</label>
+  		<input type="radio" id="55+" name="age_group" value="55+">
+  		<label for="55+">55+</label>
+  		<br>
+  		<input type="submit" value="Generate Map!">
+	</form>
+	-->
+	{% if cuisine %}
+		<br>
+		<h3>Selections</h3>
+		<br>
+		<p>Cuisine: {{ cuisine }}  
+		<br>
+		    Age group: {{ age_group }}</p>
+	{% else %}
+	{% endif %}
+	<div id='container'
+		style='padding-bottom: 56.25%; position:relative; display:block; width: 100%'>	
+		<iframe 
+			src="{{ url_for('static', filename='metric_map.html', _=current_time) }}?var=xxx" 
+			id='theframe' 
+			width=100% 
+			height=125%
+			style='position:absolute'>		
+		</iframe>
+	</div>
+	<script>
+		var _theframe = document.getElementById("theframe");
+		_theframe.contentWindow.location.href = _theframe.src;
+	</script>
+	<br>
+	<div id='container'
+		style='padding-top: 15%'>
+		{% if not top_10.empty %}
+			<h1>Top 10 zip codes</h1>
+			{% for key,value in top_10.iterrows() %}	
+				<article class="media content-section">
+				  <div class="media-body">
+				    <div class="article-metadata">
+				      <a class="mr-2">Rank: {{ key + 1 }}</a>
+				    </div>
+				    <h2><a class="article-title" href='https://www.google.com/maps/place/{{ value.postalcode}}'>Zip Code: {{ value.postalcode }}</a></h2>
+				    <p class="article-content">Population: {{ value.population }}</p>
+				    <p class="article-content">Percent age {{ age_group }}: {{ value[age_group] | round(precision=5, method='common') }}</p>
+				    <p class="article-content">Total Restaurants: {{ value.total_restaurants }}</p>
+				    <p class="article-content">Restaurants per Capita: {{ value.RPC | round(precision=5, method='common') }}</p>
+				    <p class="article-content">Number of {{ cuisine }} Restaurants: {{ (value[cuisine] * value.total_restaurants)|int }}</p>
+				    <p class="article-content">Median Income: ${{ value.med_income }}</p>
+				    
+				  </div>
+				</article>
+			{% endfor %}
+		{% endif %}
+	</div>
+	
+{% endblock content %}
