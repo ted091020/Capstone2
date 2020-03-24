@@ -7,6 +7,7 @@ This tool helps restaurateurs decide in which zip code in New York City to open 
 
 # Files list
 Data - Copy.zip  :  Contains all of the raw data needed to create the tool
+
 Gathering Data.ipynb  :  Combines the raw data and performs some basic data cleaning
 Data Analysis-Cleaning.ipynb  :  Further prepares the data for use by the tool as well as some graphical analysis
 Mapping.ipynb  :  Creates choropleth maps out of the final data
