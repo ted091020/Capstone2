@@ -18,28 +18,6 @@
 		</select>
 		<input type="submit" value="Generate Map!">
 	</form>
-
-
-	<!--
-	<form action='#' method="POST">
-  		<input type="radio" id="italian" name="cuisine" value="Italian">
-  		<label for="italian">Italian</label><br>
-  		<input type="radio" id="chinese" name="cuisine" value="Chinese">
-  		<label for="chinese">Chinese</label><br>
-  		<input type="radio" id="mexican" name="cuisine" value="Mexican">
-  		<label for="mexican">Mexican</label>
-  		<input type="radio" id="0-14" name="age_group" value="0-14">
-  		<label for="0-14">0-14</label>
-  		<input type="radio" id="15-29" name="age_group" value="15-29">
-  		<label for="15-29">15-29</label>
-  		<input type="radio" id="30-54" name="age_group" value="30-54">
-  		<label for="30-54">30-54</label>
-  		<input type="radio" id="55+" name="age_group" value="55+">
-  		<label for="55+">55+</label>
-  		<br>
-  		<input type="submit" value="Generate Map!">
-	</form>
-	-->
 	{% if cuisine %}
 		<br>
 		<h3>Selections</h3>
@@ -47,18 +25,29 @@
 		<p>Cuisine: {{ cuisine }}  
 		<br>
 		    Age group: {{ age_group }}</p>
-	{% else %}
-	{% endif %}
-	<div id='container'
+		<div id='container'
 		style='padding-bottom: 56.25%; position:relative; display:block; width: 100%'>	
-		<iframe 
-			src="{{ url_for('static', filename='metric_map.html', _=current_time) }}?var=xxx" 
-			id='theframe' 
-			width=100% 
-			height=125%
-			style='position:absolute'>		
-		</iframe>
-	</div>
+			<iframe 
+				src="{{ url_for('static', filename='metric_map.html', _=current_time) }}?var=xxx" 
+				id='theframe' 
+				width=100% 
+				height=125%
+				style='position:absolute'>		
+			</iframe>
+		</div>
+	{% else %}
+		<div id='container'
+		style='padding-bottom: 56.25%; position:relative; display:block; width: 100%'>	
+			<iframe 
+				src="{{ url_for('static', filename='default_map.html', _=current_time) }}?var=xxx" 
+				id='theframe' 
+				width=100% 
+				height=125%
+				style='position:absolute'>		
+			</iframe>
+		</div>
+	{% endif %}
+	
 	<script>
 		var _theframe = document.getElementById("theframe");
 		_theframe.contentWindow.location.href = _theframe.src;
