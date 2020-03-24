@@ -18,3 +18,7 @@ Mapping.ipynb  :  Creates choropleth maps out of the final data
 zip_recommender.py  :  Simple UI that takes user input and creates an appropriate map in a web browser
 
 website folder  :  Contains the HTML/CSS code to create the website that houses the tool
+
+Capstone 2 Milestone Presentation.pptx  :  Slide deck presentation explaining this tool
+
+Captsone 2 Milestone Report 1.pdf : Written report explaining this tool
